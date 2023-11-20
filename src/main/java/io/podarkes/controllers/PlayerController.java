@@ -18,6 +18,6 @@ public class PlayerController {
     }
 
     public PlayerRecord getPlayer(Long playerId) {
-        return new PlayerRecord(1L, "Alice");
+        return playerDao.getPlayerById(playerId);
     }
 }
