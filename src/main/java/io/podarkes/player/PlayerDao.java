@@ -21,9 +21,7 @@ public class PlayerDao {
         List<PlayerRecord> result = new ArrayList<>();
         try (Connection connection = dataSource.getConnection()) {
             Statement statement = connection.createStatement();
-            ResultSet rs = statement.executeQuery("SELECT * FROM players");
-
-
+            ResultSet rs = statement.executeQuery("SELECT * FROM player");
             while (rs.next()) {
                 result.add(new PlayerRecord(rs.getLong("id"), rs.getString("name")));
             }
