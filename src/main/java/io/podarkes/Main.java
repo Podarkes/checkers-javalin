@@ -2,17 +2,17 @@
 package io.podarkes;
 
 import io.javalin.Javalin;
+import io.podarkes.config.DatabaseConfig;
 import io.podarkes.controllers.GameController;
 import io.podarkes.controllers.MoveController;
 import io.podarkes.controllers.PlayerController;
-import org.h2.tools.Server;
+import io.podarkes.player.PlayerDao;
 
-import java.sql.SQLException;
+import javax.sql.DataSource;
 
 public class Main {
-    public static void main(String[] args) throws SQLException {
+    public static void main(String[] args) {
 
-        Server.createWebServer().start();
         Javalin app = Javalin.create().start(7000);
 
         app.get("/games", ctx -> ctx.json(GameController.getAllGames()));
@@ -23,7 +23,11 @@ public class Main {
         app.get("/games/{gameId}/moves", ctx -> ctx.json(MoveController.getMoves(ctx.body())));
         app.put("/games/{gameId}/moves", ctx -> ctx.json(MoveController.makeMove(ctx.body())));
 
-        app.get("/players", ctx -> ctx.json(PlayerController.getAllPlayers()));
-        app.get("/players/{playerId}", ctx -> ctx.json(PlayerController.getPlayer(Long.valueOf(ctx.pathParam("playerId")))));
+        DataSource dataSource = DatabaseConfig.getDataSource();
+        PlayerDao playerDao = new PlayerDao(dataSource);
+        PlayerController playerController = new PlayerController(playerDao);
+
+        app.get("/players", ctx -> ctx.json(playerController.getAllPlayers()));
+        app.get("/players/{playerId}", ctx -> ctx.json(playerController.getPlayer(Long.valueOf(ctx.pathParam("playerId")))));
     }
 }

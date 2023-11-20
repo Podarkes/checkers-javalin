@@ -1,17 +1,23 @@
 package io.podarkes.controllers;
 
+import io.podarkes.player.PlayerDao;
+import io.podarkes.player.PlayerRecord;
+
 import java.util.List;
 
 public class PlayerController {
-    public static List<PlayerResponse> getAllPlayers() {
-        return List.of();
+
+    PlayerDao playerDao;
+
+    public PlayerController(PlayerDao playerDao) {
+        this.playerDao = playerDao;
     }
 
-    public static PlayerResponse getPlayer(Long playerId) {
-        return new PlayerResponse();
+    public List<PlayerRecord> getAllPlayers() {
+        return playerDao.getAllPlayers();
     }
 
-    public record PlayerResponse() {
-
+    public PlayerRecord getPlayer(Long playerId) {
+        return new PlayerRecord(1L, "Alice");
     }
 }
