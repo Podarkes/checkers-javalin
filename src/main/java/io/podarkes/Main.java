@@ -6,7 +6,8 @@ import io.podarkes.config.DatabaseConfig;
 import io.podarkes.controllers.GameController;
 import io.podarkes.controllers.MoveController;
 import io.podarkes.controllers.PlayerController;
-import io.podarkes.player.PlayerDao;
+import io.podarkes.player.GenericDao;
+import io.podarkes.player.PlayerRecord;
 
 import javax.sql.DataSource;
 
@@ -24,7 +25,7 @@ public class Main {
         app.put("/games/{gameId}/moves", ctx -> ctx.json(MoveController.makeMove(ctx.body())));
 
         DataSource dataSource = DatabaseConfig.getDataSource();
-        PlayerDao playerDao = new PlayerDao(dataSource);
+        GenericDao<PlayerRecord> playerDao = new GenericDao<>(dataSource, PlayerRecord.class, "player");
         PlayerController playerController = new PlayerController(playerDao);
 
         app.get("/players", ctx -> ctx.json(playerController.getAllPlayers()));
