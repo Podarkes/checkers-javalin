@@ -14,9 +14,9 @@ public class GenericDao<T> {
 
     private final String tableName;
 
-    public GenericDao(DataSource dataSource, Class<PlayerRecord> type, String tableName) {
+    public GenericDao(DataSource dataSource, Class<T> type, String tableName) {
         this.dataSource = dataSource;
-        this.type = (Class<T>) type;
+        this.type = type;
         this.tableName = tableName;
     }
 
