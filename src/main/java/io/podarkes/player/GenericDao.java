@@ -8,11 +8,11 @@ import java.util.List;
 
 public class GenericDao<T> {
 
-    private final DataSource dataSource;
+    protected final DataSource dataSource;
 
-    private final Class<T> type;
+    protected final Class<T> type;
 
-    private final String tableName;
+    protected final String tableName;
 
     public GenericDao(DataSource dataSource, Class<T> type, String tableName) {
         this.dataSource = dataSource;

@@ -4,8 +4,10 @@ package io.podarkes;
 import io.javalin.Javalin;
 import io.podarkes.config.DatabaseConfig;
 import io.podarkes.controllers.GameController;
+import io.podarkes.controllers.GameRecord;
 import io.podarkes.controllers.MoveController;
 import io.podarkes.controllers.PlayerController;
+import io.podarkes.player.GameDao;
 import io.podarkes.player.GenericDao;
 import io.podarkes.player.PlayerRecord;
 
@@ -16,15 +18,18 @@ public class Main {
 
         Javalin app = Javalin.create().start(7000);
 
-        app.get("/games", ctx -> ctx.json(GameController.getAllGames()));
-        app.put("/games", ctx -> ctx.json(GameController.joinLobby(ctx.body())));
-        app.post("/games", ctx -> ctx.json(GameController.startLobby(ctx.body())));
-        app.get("/games/{gameId}", ctx -> ctx.json(GameController.getGameById(ctx.pathParam("gameId"))));
+        DataSource dataSource = DatabaseConfig.getDataSource();
+        GameDao gameDao = new GameDao(dataSource, GameRecord.class, "game");
+        GameController gameController = new GameController(gameDao);
+
+        app.get("/games", ctx -> ctx.json(gameController.getAllGames()));
+        app.put("/games", ctx -> ctx.json(gameController.joinLobby(Long.valueOf(ctx.queryParam("gameId")))));
+        app.post("/games", ctx -> ctx.json(gameController.startLobby(Long.valueOf(ctx.queryParam("playerId")))));
+        app.get("/games/{gameId}", ctx -> ctx.json(gameController.getGameById(Long.valueOf(ctx.pathParam("gameId")))));
 
         app.get("/games/{gameId}/moves", ctx -> ctx.json(MoveController.getMoves(ctx.body())));
         app.put("/games/{gameId}/moves", ctx -> ctx.json(MoveController.makeMove(ctx.body())));
 
-        DataSource dataSource = DatabaseConfig.getDataSource();
         GenericDao<PlayerRecord> playerDao = new GenericDao<>(dataSource, PlayerRecord.class, "player");
         PlayerController playerController = new PlayerController(playerDao);
 

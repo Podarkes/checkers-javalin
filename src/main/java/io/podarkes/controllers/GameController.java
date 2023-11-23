@@ -1,28 +1,31 @@
 package io.podarkes.controllers;
 
-import io.podarkes.domain.GameProgress;
+import io.podarkes.player.GameDao;
 
 import java.util.List;
-import java.util.UUID;
 
 public class GameController {
-    public static GameRecord getGameById(String gameId) {
-        return new GameRecord(UUID.randomUUID().toString(), GameProgress.ONGOING);
+
+    private GameDao gameDao;
+
+    public GameController(GameDao gameDao) {
+        this.gameDao = gameDao;
     }
 
-    public static List<GameRecord> getAllGames() {
-        return List.of();
+    public GameRecord getGameById(Long gameId) {
+        return gameDao.findById(gameId);
     }
 
-    public static GameRecord joinLobby(String gameId) {
-        return new GameRecord(UUID.randomUUID().toString(), GameProgress.STARTING);
+    public List<GameRecord> getAllGames() {
+        return gameDao.findAll();
     }
 
-    public static GameRecord startLobby(String request) {
-        return new GameRecord(UUID.randomUUID().toString(), GameProgress.LOBBY);
+    public GameRecord joinLobby(Long playerId) {
+        // TODO Implement
+        return null;
     }
 
-    public record GameRecord(String uuid, GameProgress gameProgress) {
-
+    public GameRecord startLobby(Long playerId) {
+        return gameDao.createLobby(playerId);
     }
 }
