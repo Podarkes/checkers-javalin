@@ -1,7 +1,6 @@
-package io.podarkes.controllers;
+package io.podarkes.player;
 
-import io.podarkes.player.GenericDao;
-import io.podarkes.player.PlayerRecord;
+import io.podarkes.persistence.GenericDao;
 
 import java.util.List;
 

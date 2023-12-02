@@ -1,4 +1,4 @@
-package io.podarkes.config;
+package io.podarkes.persistence;
 
 import org.h2.jdbcx.JdbcDataSource;
 

@@ -1,4 +1,4 @@
-package io.podarkes.controllers;
+package io.podarkes.move;
 
 public class MoveController {
     public static MoveResponse getMoves(String moveRequest) {

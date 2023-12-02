@@ -1,4 +1,4 @@
-package io.podarkes.controllers;
+package io.podarkes.game;
 
 import io.podarkes.domain.GameProgress;
 

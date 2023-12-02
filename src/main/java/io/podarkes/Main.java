@@ -2,13 +2,13 @@
 package io.podarkes;
 
 import io.javalin.Javalin;
-import io.podarkes.config.DatabaseConfig;
-import io.podarkes.controllers.GameController;
-import io.podarkes.controllers.GameRecord;
-import io.podarkes.controllers.MoveController;
-import io.podarkes.controllers.PlayerController;
-import io.podarkes.player.GameDao;
-import io.podarkes.player.GenericDao;
+import io.podarkes.persistence.DatabaseConfig;
+import io.podarkes.game.GameController;
+import io.podarkes.game.GameRecord;
+import io.podarkes.move.MoveController;
+import io.podarkes.player.PlayerController;
+import io.podarkes.game.GameDao;
+import io.podarkes.persistence.GenericDao;
 import io.podarkes.player.PlayerRecord;
 
 import javax.sql.DataSource;

@@ -1,4 +1,4 @@
-package io.podarkes.player;
+package io.podarkes.persistence;
 
 import javax.sql.DataSource;
 import java.lang.reflect.InvocationTargetException;

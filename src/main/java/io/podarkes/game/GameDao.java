@@ -1,7 +1,7 @@
-package io.podarkes.player;
+package io.podarkes.game;
 
-import io.podarkes.controllers.GameRecord;
 import io.podarkes.domain.GameProgress;
+import io.podarkes.persistence.GenericDao;
 
 import javax.sql.DataSource;
 import java.sql.*;

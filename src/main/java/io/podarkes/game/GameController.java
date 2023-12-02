@@ -1,6 +1,7 @@
-package io.podarkes.controllers;
+package io.podarkes.game;
 
-import io.podarkes.player.GameDao;
+import io.podarkes.game.GameDao;
+import io.podarkes.game.GameRecord;
 
 import java.util.List;
 
