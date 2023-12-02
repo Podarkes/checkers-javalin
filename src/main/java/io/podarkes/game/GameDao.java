@@ -31,7 +31,7 @@ public class GameDao extends GenericDao<GameRecord> {
             if (i == 1) {
                 ResultSet rs = ps.getGeneratedKeys();
                 if (rs.next()) {
-                    return new GameRecord(rs.getLong(1), GameProgress.LOBBY, player1, null);
+                    return new GameRecord(rs.getLong(1), GameProgress.LOBBY.toString(), player1, null);
                 }
             }
 

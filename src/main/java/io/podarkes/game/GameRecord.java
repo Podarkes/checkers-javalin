@@ -1,7 +1,5 @@
 package io.podarkes.game;
 
-import io.podarkes.domain.GameProgress;
-
-public record GameRecord(Long id, GameProgress gameProgress, Long player1, Long player2) {
+public record GameRecord(Long id, String progress, Long player1, Long player2) {
 
 }
