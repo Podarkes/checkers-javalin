@@ -6,16 +6,17 @@ import javax.sql.DataSource;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Parameter;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
 public class GenericDao<T> {
-
     protected final DataSource dataSource;
-
     protected final Class<T> type;
-
     protected final String tableName;
 
     public GenericDao(DataSource dataSource, Class<T> type, String tableName) {
@@ -25,7 +26,6 @@ public class GenericDao<T> {
     }
 
     public List<T> findAll() {
-
         List<T> result = new ArrayList<>();
         try (Connection connection = dataSource.getConnection()) {
 

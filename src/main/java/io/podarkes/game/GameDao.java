@@ -4,11 +4,7 @@ import io.podarkes.domain.GameProgress;
 import io.podarkes.persistence.GenericDao;
 
 import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 
 public class GameDao extends GenericDao<GameRecord> {
@@ -18,8 +14,6 @@ public class GameDao extends GenericDao<GameRecord> {
     }
 
     public GameRecord createLobby(Long player1) {
-
-        // TODO Extract entity creation to GenericDao
         try (Connection con = dataSource.getConnection()) {
 
             String INSERT = STR. "INSERT INTO \{ tableName }(player1, progress) values (?, ?)" ;
@@ -40,5 +34,22 @@ public class GameDao extends GenericDao<GameRecord> {
         }
 
         throw new IllegalStateException();
+    }
+
+    public GameRecord joinLobby(Long gameId, Long playerId) {
+
+        try (Connection con = dataSource.getConnection()) {
+
+            String UPDATE = STR. "UPDATE \{ tableName } SET player2 = ?, progress = ? WHERE id = ?" ;
+            PreparedStatement ps = con.prepareStatement(UPDATE);
+            ps.setLong(1, playerId);
+            ps.setString(2, GameProgress.STARTING.toString());
+            ps.setLong(3, gameId);
+            ps.executeUpdate();
+            return this.findById(gameId);
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

@@ -23,7 +23,7 @@ public class Main {
         GameController gameController = new GameController(gameDao);
 
         app.get("/games", ctx -> ctx.json(gameController.getAllGames()));
-        app.put("/games", ctx -> ctx.json(gameController.joinLobby(Long.valueOf(ctx.queryParam("gameId")))));
+        app.put("/games", ctx -> ctx.json(gameController.joinLobby(Long.valueOf(ctx.queryParam("gameId")), Long.valueOf(ctx.queryParam("playerId")))));
         app.post("/games", ctx -> ctx.json(gameController.startLobby(Long.valueOf(ctx.queryParam("playerId")))));
         app.get("/games/{gameId}", ctx -> ctx.json(gameController.getGameById(Long.valueOf(ctx.pathParam("gameId")))));
 

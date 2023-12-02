@@ -1,13 +1,9 @@
 package io.podarkes.game;
 
-import io.podarkes.game.GameDao;
-import io.podarkes.game.GameRecord;
-
 import java.util.List;
 
 public class GameController {
-
-    private GameDao gameDao;
+    private final GameDao gameDao;
 
     public GameController(GameDao gameDao) {
         this.gameDao = gameDao;
@@ -21,9 +17,8 @@ public class GameController {
         return gameDao.findAll();
     }
 
-    public GameRecord joinLobby(Long playerId) {
-        // TODO Implement
-        return null;
+    public GameRecord joinLobby(Long gameId, Long playerId) {
+        return gameDao.joinLobby(gameId, playerId);
     }
 
     public GameRecord startLobby(Long playerId) {
