@@ -4,7 +4,11 @@ import io.podarkes.domain.GameProgress;
 import io.podarkes.persistence.GenericDao;
 
 import javax.sql.DataSource;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 
 public class GameDao extends GenericDao<GameRecord> {
@@ -27,7 +31,7 @@ public class GameDao extends GenericDao<GameRecord> {
             if (i == 1) {
                 ResultSet rs = ps.getGeneratedKeys();
                 if (rs.next()) {
-                    return new GameRecord(rs.getLong(1),GameProgress.LOBBY);
+                    return new GameRecord(rs.getLong(1), GameProgress.LOBBY, player1, null);
                 }
             }
 
