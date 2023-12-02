@@ -13,14 +13,14 @@ public class GameDao extends GenericDao<GameRecord> {
         super(dataSource, type, tableName);
     }
 
-    public GameRecord createLobby(Long playerOneId) {
+    public GameRecord createLobby(Long player1) {
 
         // TODO Extract entity creation to GenericDao
         try (Connection con = dataSource.getConnection()) {
 
-            String INSERT = STR. "INSERT INTO \{ tableName }(player_one_id, progress) values (?, ?)" ;
+            String INSERT = STR. "INSERT INTO \{ tableName }(player1, progress) values (?, ?)" ;
             PreparedStatement ps = con.prepareStatement(INSERT, Statement.RETURN_GENERATED_KEYS);
-            ps.setLong(1, playerOneId);
+            ps.setLong(1, player1);
             ps.setString(2, GameProgress.LOBBY.toString());
 
             int i = ps.executeUpdate();
